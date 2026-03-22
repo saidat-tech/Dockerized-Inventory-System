@@ -96,11 +96,20 @@ Enter
 
 ## Step 3 — Create public/index.html
 
-Run:
-
+- Creat a folder named public and file named index.html inside it.
+~~~
+mkdir public
+~~~
+~~~
+touch index.html
+~~~
+- Open the file with:
+~~~
 nano public/index.html
+~~~
+<img width="542" height="216" alt="Image" src="https://github.com/user-attachments/assets/aad5b251-2a8d-4e4d-8241-0b4a96f7873a" />
 
-Paste this simple working version first:
+- Paste this simple working version first:
 
 <!DOCTYPE html>
 <html lang="en">
@@ -127,22 +136,28 @@ Paste this simple working version first:
 
 This is enough to confirm Docker works before using your full frontend.
 
-Step 4 — Install Node.js locally
+## Step 4 — Install Node.js locally
 
-Earlier you got:
+- Install Node.js on your local machine.
+- Search for Node.js on your search engine.
+  <img width="587" height="252" alt="Image" src="https://github.com/user-attachments/assets/07149497-c84f-416f-9465-7c8f9750ff10" />
+- Click on **Get Node.js**
+  <img width="397" height="141" alt="Image" src="https://github.com/user-attachments/assets/283c54b9-d2f0-4227-b0ad-6e8c948266b8" />
+- Edit the requirement; I changed **Windows - Linux** and **Docker - npm**
 
-npm: command not found
+<img width="778" height="111" alt="Image" src="https://github.com/user-attachments/assets/3d1f1488-c174-4af6-a9e1-6886609cf247" />
+-So you have something like this:
 
-So make sure Node.js is installed on your local machine.
+ <img width="805" height="506" alt="Image" src="https://github.com/user-attachments/assets/f50b1e61-766b-4188-b7d3-6de5c195d9b7" />
+- Then copy the code to install your Node.js
 
-Check:
-
+- Check to confirm that **node** and ** npm** are installed:
+~~~
 node -v
 npm -v
+~~~
 
-If either command fails, install Node.js LTS from the official site, then reopen Git Bash.
-
-Step 5 — Create package.json
+## Step 5 — Create package.json
 
 Inside dockerized-inventory-system, run:
 
