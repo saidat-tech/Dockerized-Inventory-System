@@ -368,7 +368,7 @@ Inventory System running at: 3000
 http://localhost:3000
 ~~~
 
-You should see the page.
+- You should see the page.
 
 <img width="698" height="304" alt="Image" src="https://github.com/user-attachments/assets/428a667f-c1a7-40cd-8761-68d8d3e40593" />
 
@@ -390,28 +390,6 @@ dockerized-inventory-system/
 ├── .dockerignore
 └── public/
     └── index.html
-```
-
-## How to Run
-
-### Build the image
-
-```bash
-docker build -t inventory-app .
-```
-
-### Run the container
-
-```bash
-docker run -d -p 3000:3000 --name inventory-container inventory-app
-```
-
-### Access the application
-
-Open:
-
-```bash
-http://localhost:3000
 ```
 
 ## Skills Demonstrated
