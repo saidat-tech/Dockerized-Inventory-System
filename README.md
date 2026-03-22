@@ -8,6 +8,12 @@ The system runs a Node.js backend built with Express.js and serves a React-based
 
 By containerizing the application, the project eliminates inconsistencies and makes deployment easier across systems.
 
+## Architecture Overview
+
+The application runs inside a Docker container that includes the Node.js runtime and all required dependencies. The container exposes a web service that allows users to access the inventory system through a browser.
+
+User requests are sent to the containerized application, where the Express API processes inventory operations and the React frontend renders the user interface.
+
 ## Step 1 — Create the project folder
 
 - Go to your Downloads folder and create the project folder then move into the project folder:
