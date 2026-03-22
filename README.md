@@ -383,7 +383,7 @@ http://localhost:3000
 - Node.js
 - Express.js
 - Docker
-- React
+  
   
 ## Project Structure
 
