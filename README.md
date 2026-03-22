@@ -110,7 +110,7 @@ nano public/index.html
 <img width="542" height="216" alt="Image" src="https://github.com/user-attachments/assets/aad5b251-2a8d-4e4d-8241-0b4a96f7873a" />
 
 - Paste this simple working version first:
-
+~~~
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -133,6 +133,7 @@ nano public/index.html
   <p>Your Dockerized Inventory App is working successfully.</p>
 </body>
 </html>
+~~~
 
 This is enough to confirm Docker works before using your full frontend.
 
