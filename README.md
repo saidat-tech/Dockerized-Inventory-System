@@ -8,6 +8,303 @@ The application is built with Node.js and Express, and serves a frontend interfa
 
 By packaging the application into a Docker container, the project removes environment inconsistencies and makes deployment easier across systems.
 
+## Step 1 — Create the project folder
+
+- Go to your Downloads folder and create the project folder then move into the project folder:
+~~~
+cd ~/Downloads
+mkdir -p dockerized-inventory-system
+cd dockerized-inventory-system
+~~~
+<img width="341" height="59" alt="Image" src="https://github.com/user-attachments/assets/c07004f5-b251-4125-b6de-c59825536b4b" />
+
+<img width="418" height="66" alt="Image" src="https://github.com/user-attachments/assets/bfa60b31-90fd-477a-b5ad-b5dbc4811bd0" />
+
+- Check where you are with the code below:
+~~~
+pwd
+~~~
+You should be inside:
+~~~
+~/Downloads/dockerized-inventory-system
+~~~
+
+<img width="501" height="65" alt="Image" src="https://github.com/user-attachments/assets/957e35d3-e5ee-4bb8-9cba-88a66a74e19c" />
+
+This step is important. If you are not in the project folder, Docker will build from the entire Downloads folder, which will make the build context too large.
+
+## Step 2 — Create app.js
+
+- Create the file using:
+~~~
+touch app.js
+~~~
+- Then open the file with: 
+~~~
+nano app.js
+~~~
+
+<img width="496" height="102" alt="Image" src="https://github.com/user-attachments/assets/466286bc-35d5-4a2a-885e-22097bb9faac" />
+
+Paste this code in:
+~~~
+const express = require('express');
+const app = express();
+const PORT = 3000;
+
+app.use(express.json());
+app.use(express.static('public'));
+
+let inventory = [
+    { id: 1, name: "Cisco Catalyst 9300", qty: 2, category: "Networking" },
+    { id: 2, name: "PowerEdge R750", qty: 5, category: "Servers" }
+];
+
+app.get('/api/inventory', (req, res) => res.json(inventory));
+
+app.post('/api/inventory', (req, res) => {
+    const newItem = { id: Date.now(), ...req.body };
+    inventory.push(newItem);
+    res.status(201).json(newItem);
+});
+
+app.put('/api/inventory/:id', (req, res) => {
+    const { id } = req.params;
+    inventory = inventory.map(item =>
+        item.id == id ? { ...item, ...req.body } : item
+    );
+    res.json({ message: "Update Successful" });
+});
+
+app.delete('/api/inventory/:id', (req, res) => {
+    inventory = inventory.filter(item => item.id != req.params.id);
+    res.status(204).send();
+});
+
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Inventory System running at: ${PORT}`);
+});
+~~~
+
+Save with:
+~~~
+Ctrl + X
+Y
+Enter
+~~~
+
+
+## Step 3 — Create public/index.html
+
+Run:
+
+nano public/index.html
+
+Paste this simple working version first:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>InventoryOS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0d1117;
+      color: white;
+      padding: 40px;
+    }
+    h1 {
+      color: #58a6ff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Inventory System is running</h1>
+  <p>Your Dockerized Inventory App is working successfully.</p>
+</body>
+</html>
+
+This is enough to confirm Docker works before using your full frontend.
+
+Step 4 — Install Node.js locally
+
+Earlier you got:
+
+npm: command not found
+
+So make sure Node.js is installed on your local machine.
+
+Check:
+
+node -v
+npm -v
+
+If either command fails, install Node.js LTS from the official site, then reopen Git Bash.
+
+Step 5 — Create package.json
+
+Inside dockerized-inventory-system, run:
+
+npm init -y
+
+Then install Express:
+
+npm install express
+
+Now confirm the files:
+
+ls
+
+You should now see:
+
+app.js
+package.json
+package-lock.json
+public
+Step 6 — Update package.json
+
+Open it:
+
+nano package.json
+
+Find the scripts section and change it to this:
+
+"scripts": {
+  "start": "node app.js"
+}
+
+So your package.json should look similar to:
+
+{
+  "name": "dockerized-inventory-system",
+  "version": "1.0.0",
+  "description": "Dockerized inventory system project",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
+
+This is cleaner and more professional.
+
+Step 7 — Create Dockerfile
+
+Create the file:
+
+nano Dockerfile
+
+Paste this exact content:
+
+FROM node:18
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
+Why this fixes earlier problems
+avoids empty Dockerfile
+installs dependencies inside the container
+exposes the same port your app uses
+runs the app through npm start
+Step 8 — Create .dockerignore
+
+Create the file:
+
+nano .dockerignore
+
+Paste:
+
+node_modules
+.git
+.gitignore
+npm-debug.log
+README.md
+Why this matters
+
+Earlier Docker tried to transfer 14.79GB because the build context was wrong.
+This file helps keep the Docker context small and clean.
+
+Step 9 — Check your folder before building
+
+Run:
+
+ls
+ls public
+cat Dockerfile
+
+You should have:
+
+app.js
+package.json
+package-lock.json
+Dockerfile
+.dockerignore
+public/index.html
+
+Only continue once these are present.
+
+Step 10 — Build the Docker image
+
+Make sure you are inside the project folder:
+
+pwd
+
+Then build:
+
+docker build -t inventory-app .
+Important reminder
+
+The . means “use this current folder.”
+If you run this from ~/Downloads, Docker will try to build your entire Downloads folder.
+
+Step 11 — Run the container
+
+Run:
+
+docker run -d -p 3000:3000 --name inventory-container inventory-app
+
+This maps:
+
+local machine port 3000
+to container port 3000
+Step 12 — Verify it is running
+
+Run:
+
+docker ps
+
+You should see inventory-container with status Up.
+
+Then check logs:
+
+docker logs inventory-container
+
+You should see:
+
+Inventory System running at: 3000
+
+Then open in your browser:
+
+http://localhost:3000
+
+You should see the page.
+
+
+
 ## Technologies Used
 
 - Node.js
