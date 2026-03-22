@@ -149,6 +149,7 @@ This is enough to confirm Docker works before using your full frontend.
 -So you have something like this:
 
  <img width="805" height="506" alt="Image" src="https://github.com/user-attachments/assets/f50b1e61-766b-4188-b7d3-6de5c195d9b7" />
+ 
 - Then copy the code to install your Node.js
 
 - Check to confirm that **node** and ** npm** are installed:
