@@ -147,7 +147,7 @@ This is enough to confirm Docker works before using your full frontend.
 
   <img width="397" height="141" alt="Image" src="https://github.com/user-attachments/assets/283c54b9-d2f0-4227-b0ad-6e8c948266b8" />
   
-- Edit the requirement; I changed **Windows - Linux** and **Docker - npm**
+- Edit the requirement; I changed **Windows - Linux** and **Docker - nvm**
 
 <img width="778" height="111" alt="Image" src="https://github.com/user-attachments/assets/3d1f1488-c174-4af6-a9e1-6886609cf247" />
 
@@ -164,40 +164,57 @@ node -v
 npm -v
 ~~~
 
+<img width="487" height="131" alt="Image" src="https://github.com/user-attachments/assets/af2b6b21-15ee-4294-bb73-644fef099978" />
+
 ## Step 5 — Create package.json
 
-Inside dockerized-inventory-system, run:
-
+- Inside your dockerized-inventory-system, run:
+~~~
 npm init -y
-
-Then install Express:
-
+~~~
+- Then install Express:
+~~~
 npm install express
+~~~
 
-Now confirm the files:
-
+- Confirm the files inside with:
+  
+~~~
 ls
+~~~
 
-You should now see:
-
+- You should now see:
+  
+~~~
 app.js
 package.json
 package-lock.json
 public
-Step 6 — Update package.json
+~~~
 
-Open it:
+## Step 6 — Update package.json
 
+- Inside your dockerized-inventory-system, initialize npm; run:
+
+~~~
+npm init -y
+~~~
+
+- Open the package.json:
+  
+~~~
 nano package.json
+~~~
 
-Find the scripts section and change it to this:
+- Find the scripts section and change it to this:
 
+~~~
 "scripts": {
   "start": "node app.js"
 }
-
+~~~
 So your package.json should look similar to:
-
+~~~
 {
   "name": "dockerized-inventory-system",
   "version": "1.0.0",
@@ -213,17 +230,25 @@ So your package.json should look similar to:
     "express": "^4.21.2"
   }
 }
+~~~
 
-This is cleaner and more professional.
+## Step 7 — Create Dockerfile
 
-Step 7 — Create Dockerfile
+- Create the file named Dockerfile:
+  
+~~~
+touch Dockerfile
+~~~
 
-Create the file:
-
+~~~
 nano Dockerfile
+~~~
+
+<img width="494" height="107" alt="Image" src="https://github.com/user-attachments/assets/6454371e-7f37-4d9c-8126-82c595caedc1" />
 
 Paste this exact content:
 
+~~~
 FROM node:18
 
 WORKDIR /app
@@ -237,94 +262,115 @@ COPY . .
 EXPOSE 3000
 
 CMD ["npm", "start"]
-Why this fixes earlier problems
-avoids empty Dockerfile
-installs dependencies inside the container
-exposes the same port your app uses
-runs the app through npm start
-Step 8 — Create .dockerignore
+~~~
 
-Create the file:
+- This installs dependencies inside the container, exposes the same port your app uses and runs the app through npm start.
 
+## Step 8 — Create .dockerignore
+
+- Create the file with:
+~~~
+touch .dockerignore
+~~~
+
+- Open the file:
+~~~
 nano .dockerignore
+~~~
+<img width="492" height="96" alt="Image" src="https://github.com/user-attachments/assets/1c6c539a-375b-45a0-b2db-5e46adfaf70b" />
 
-Paste:
-
+- Paste:
+~~~
 node_modules
 .git
 .gitignore
 npm-debug.log
 README.md
-Why this matters
+~~~
 
-Earlier Docker tried to transfer 14.79GB because the build context was wrong.
-This file helps keep the Docker context small and clean.
+- This file helps keep the Docker context small and clean.
 
-Step 9 — Check your folder before building
+## Step 9 — Check your folder before building
+- Check your folder to confirm your folers and files.
 
-Run:
-
-ls
-ls public
-cat Dockerfile
+<img width="681" height="140" alt="Image" src="https://github.com/user-attachments/assets/bda6e308-4344-4c47-8c9f-2e7e97186084" />
 
 You should have:
-
+~~~
 app.js
 package.json
 package-lock.json
 Dockerfile
 .dockerignore
 public/index.html
+~~~
 
-Only continue once these are present.
+## Step 10 — Build the Docker image
 
-Step 10 — Build the Docker image
+Before building, make sure you are inside the project folder:
+- Check with:
 
-Make sure you are inside the project folder:
-
+~~~
 pwd
+~~~
 
-Then build:
+Then build with:
 
+~~~
 docker build -t inventory-app .
-Important reminder
+~~~
 
-The . means “use this current folder.”
-If you run this from ~/Downloads, Docker will try to build your entire Downloads folder.
+<img width="725" height="240" alt="Image" src="https://github.com/user-attachments/assets/91a2cf20-11e4-44e2-8a5d-d2b354dff88f" />
+<img width="729" height="204" alt="Image" src="https://github.com/user-attachments/assets/c08c6e89-5867-48aa-b1d4-f9aff5918524" />
 
-Step 11 — Run the container
+Note:
+The **.** means **“use this current folder.”**
+If you run this from ~/Downloads or anywhere else, Docker will try to build your entire Downloads folder or the folder you are in.
 
-Run:
+## Step 11 — Run the container
 
+- Run the container with:
+~~~
 docker run -d -p 3000:3000 --name inventory-container inventory-app
+~~~
 
-This maps:
+<img width="494" height="73" alt="Image" src="https://github.com/user-attachments/assets/f33288bd-3261-4353-9edb-0d67bd8d6606" />
 
-local machine port 3000
-to container port 3000
-Step 12 — Verify it is running
+- This will map the local machine port 3000 to the container port 3000.
+  
+## Step 12 — Verify it is running
 
-Run:
-
+- Verify the container is running with:
+  
+~~~
 docker ps
+~~~
 
-You should see inventory-container with status Up.
+- You should see inventory-container with **status Up**.
 
-Then check logs:
+<img width="739" height="122" alt="Image" src="https://github.com/user-attachments/assets/a5027f1e-3ac8-41ac-8fd7-d052264944ff" />
 
+- Then check logs with:
+~~~
 docker logs inventory-container
+~~~
 
-You should see:
-
+- You should see:
+~~~
 Inventory System running at: 3000
+~~~
 
-Then open in your browser:
+<img width="495" height="136" alt="Image" src="https://github.com/user-attachments/assets/a919f371-fb71-4f01-ad67-6c71e44e283f" />
 
+- Then open in your browser with:
+  
+~~~
 http://localhost:3000
+~~~
 
 You should see the page.
 
+<img width="698" height="304" alt="Image" src="https://github.com/user-attachments/assets/428a667f-c1a7-40cd-8761-68d8d3e40593" />
 
 
 ## Technologies Used
