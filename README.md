@@ -2,11 +2,11 @@
 
 ## Project Overview
 
-This project demonstrates how an inventory management application can be containerized using Docker to provide a consistent and portable runtime environment.
+This project demonstrates how to containerize a cloud-based inventory management application using Docker. The application is packaged into a Docker container to ensure consistent deployments across development, testing, and production environments.
 
-The application is built with Node.js and Express, and serves a frontend interface from a public directory. 
+The system runs a Node.js backend built with Express.js and serves a React-based frontend interface that allows users to manage infrastructure inventory assets.
 
-By packaging the application into a Docker container, the project removes environment inconsistencies and makes deployment easier across systems.
+By containerizing the application, the project eliminates inconsistencies and makes deployment easier across systems.
 
 ## Step 1 — Create the project folder
 
