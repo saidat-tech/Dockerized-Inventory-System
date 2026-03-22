@@ -135,8 +135,6 @@ nano public/index.html
 </html>
 ~~~
 
-This is enough to confirm Docker works before using your full frontend.
-
 ## Step 4 — Install Node.js locally
 
 - Install Node.js on your local machine.
