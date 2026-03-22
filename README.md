@@ -156,7 +156,7 @@ nano public/index.html
  
 - Then copy the code to install your Node.js
 
-- Check to confirm that **node** and ** npm** are installed:
+- Check to confirm that **node** and **npm** are installed:
   
 ~~~
 node -v
@@ -323,7 +323,7 @@ docker build -t inventory-app .
 <img width="729" height="204" alt="Image" src="https://github.com/user-attachments/assets/c08c6e89-5867-48aa-b1d4-f9aff5918524" />
 
 Note:
-The **.** means **“use this current folder.”**
+The **period (.)** means **“use this current folder.”**
 If you run this from ~/Downloads or anywhere else, Docker will try to build your entire Downloads folder or the folder you are in.
 
 ## Step 11 — Run the container
