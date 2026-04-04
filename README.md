@@ -2,9 +2,16 @@
 
 ## Project Overview
 
-This project demonstrates how to containerize a cloud-based inventory management application using Docker. The application is packaged into a Docker container to ensure consistent deployments across development, testing, and production environments.
+This project demonstrates how to containerize a cloud-based inventory management application using Docker. 
+- What is Docker? 
+
+Docker is a tool that packages an application and everything it needs to run, together into a container.The application is packaged into a Docker container to ensure consistent deployments across development, testing, and production environments.
 
 The system runs a Node.js backend built with Express.js and serves a React-based frontend interface that allows users to manage infrastructure inventory assets.
+
+## Why Docker?
+
+Docker allows organisations to package applications with their dependencies into containers, ensuring consistency across environments. It improves deployment speed, supports microservices architecture, enables CI/CD automation, reduces infrastructure costs, and allows easy scaling. DevOps engineers use Docker because it enables reliable, repeatable, and automated deployments while integrating well with Kubernetes and cloud platforms.
 
 By containerizing the application, the project eliminates inconsistencies and makes deployment easier across systems.
 
