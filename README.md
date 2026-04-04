@@ -21,6 +21,8 @@ The application runs inside a Docker container that includes the Node.js runtime
 
 User requests are sent to the containerized application, where the Express API processes inventory operations and the React frontend renders the user interface.
 
+## Skip to Step 7 to see how Docker is being put to action.
+
 ## Step 1 — Create the project folder
 
 - Go to your Downloads folder and create the project folder then move into the project folder:
