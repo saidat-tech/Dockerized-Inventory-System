@@ -25,6 +25,21 @@ By containerizing the application, the project eliminates inconsistencies and ma
 The application runs inside a Docker container that includes the Node.js runtime and all required dependencies. The container exposes a web service that allows users to access the inventory system through a browser.
 
 User requests are sent to the containerized application, where the Express API processes inventory operations and the React frontend renders the user interface.
+~~~
+User
+  │
+  ▼
+Browser
+  │
+  ▼
+Docker Container
+  │
+  ▼
+Node.js Runtime
+  │
+  ▼
+Express API + React Frontend
+~~~
 
 ## Skip to Step 7 to see how Docker is being put to action.
 
