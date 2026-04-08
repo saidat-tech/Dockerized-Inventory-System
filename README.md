@@ -1,3 +1,8 @@
+![AWS](https://img.shields.io/badge/AWS-Cloud-orange)
+![Docker](https://img.shields.io/badge/Docker-Container-blue)
+![Node.js](https://img.shields.io/badge/Node.js-Backend-green)
+![DevOps](https://img.shields.io/badge/DevOps-Project-red)
+
 # Dockerized-Inventory-System
 
 ## Project Overview
